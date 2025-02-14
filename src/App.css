@@ -1,0 +1,369 @@
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+}
+
+.main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.canvas-container {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+}
+
+.message-container {
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+.love-message {
+  font-family: 'Pacifico', cursive;
+  color: #ff4081;
+  animation: float 3s ease-in-out infinite;
+}
+
+.floating-hearts {
+  position: absolute;
+  font-size: 24px;
+  animation: floatHeart 4s ease-in-out infinite;
+}
+
+.photos-container {
+  padding: 20px;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.photo-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+  transform: scale(1);
+  transition: transform 0.5s ease;
+}
+
+.photo-item {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transform-origin: center;
+  transition: all 0.3s ease;
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.photo-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 10px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.photo-item:hover .photo-caption {
+  transform: translateY(0);
+}
+
+.photo-item:hover .photo-wrapper,
+.photo-item.hovered .photo-wrapper {
+  transform: scale(1.1);
+}
+
+.photo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.photo-item:hover .photo-overlay,
+.photo-item.hovered .photo-overlay {
+  opacity: 1;
+}
+
+.heart-icon {
+  font-size: 50px;
+  animation: heartBeat 1.5s infinite;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.photo-item:hover .heart-icon,
+.photo-item.hovered .heart-icon {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.photo-item:hover,
+.photo-item.hovered {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.surprise-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.surprise-content {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.heart-animation {
+  font-size: 50px;
+  animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+.photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90vh;
+  animation: zoomIn 0.5s ease-out;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 10px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes floatHeart {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -10px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.3); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.3); }
+  70% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .photo-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px;
+  }
+}
+
+.anniversary-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.anniversary-content {
+  background: linear-gradient(145deg, #ff6b6b, #ff8e8e);
+  padding: 40px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 90%;
+  animation: popAndSpin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.anniversary-title {
+  font-family: 'Pacifico', cursive;
+  color: white;
+  font-size: 2.5em;
+  margin: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  animation: scaleIn 0.5s ease-out 0.5s both;
+}
+
+.anniversary-message {
+  color: white;
+  font-size: 1.2em;
+  margin: 20px 0;
+  animation: slideUp 0.5s ease-out 0.7s both;
+}
+
+.floating-balloons {
+  font-size: 2em;
+  margin-bottom: 20px;
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+.anniversary-hearts {
+  font-size: 1.8em;
+  margin: 15px 0;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.celebration-icons {
+  font-size: 1.5em;
+  margin: 15px 0;
+  animation: spin 4s linear infinite;
+}
+
+.close-button {
+  background: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  color: #ff6b6b;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: transform 0.3s ease;
+  animation: bounceIn 0.5s ease-out 1s both;
+}
+
+.close-button:hover {
+  transform: scale(1.05);
+}
+
+@keyframes popAndSpin {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .anniversary-title {
+    font-size: 2em;
+  }
+  
+  .anniversary-message {
+    font-size: 1em;
+  }
+  
+  .anniversary-content {
+    padding: 30px;
+  }
+}
